@@ -1,1 +1,3 @@
+ofxCv
 ofxMacamPs3Eye
+ofxOpenCv
