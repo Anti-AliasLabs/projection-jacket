@@ -22,13 +22,16 @@ void testApp::setup(){
         bwTextures.push_back(bwTex);
         
         // set up spyhon server
-        ofxSyphonServer* sServer = new ofxSyphonServer();
+        /*ofxSyphonServer* sServer = new ofxSyphonServer();
         sServer->setName("Camera");
         syphonServers.push_back(sServer);
+         */
 	}
+    
+    syphonServer.setName("Cameras");
 	
 	if(cameras.size() > 0){
-		ofSetWindowShape(320 * cameras.size(), 240);
+		ofSetWindowShape(320 * cameras.size(), 240 * 2);
 	}
 }
 
@@ -69,12 +72,19 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
+    ofTexture* combinedTexture = new ofTexture();
+    combinedTexture->allocate(320*cameras.size(), 240, GL_RGB);
+    
 	for (int i = 0; i < cameras.size(); i++) {
 		cameras[i]->draw(i * cameras[i]->getWidth(),0);
 		ofDrawBitmapString(ofToString(cameras[i]->getRealFrameRate()), i * cameras[i]->getWidth() + 20, 20);
         
-        syphonServers[i]->publishTexture(bwTextures[i]);
+        bwTextures[i]->draw(i * bwTextures[i]->getWidth(), 240);
+        
+        //syphonServers[i]->publishTexture(bwTextures[i]);
 	}
+    combinedTexture->loadScreenData(0, 240, 320 * bwTextures.size(), 240);
+    syphonServer.publishTexture(combinedTexture);
 	
 	if(cameras.size() == 0){
 		ofDrawBitmapString("No PS3Eye found. :(", 20, 20);

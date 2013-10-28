@@ -28,5 +28,6 @@ public:
 	
 	vector<ofxMacamPs3Eye*> cameras;
     vector<ofTexture*> bwTextures;
-    vector<ofxSyphonServer*> syphonServers;
+    //vector<ofxSyphonServer*> syphonServers;
+    ofxSyphonServer syphonServer;
 };
