@@ -30,4 +30,5 @@ public:
     vector<ofTexture*> bwTextures;
     //vector<ofxSyphonServer*> syphonServers;
     ofxSyphonServer syphonServer;
+    //ofTexture* combinedTexture;
 };

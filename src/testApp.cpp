@@ -27,11 +27,13 @@ void testApp::setup(){
         syphonServers.push_back(sServer);
          */
 	}
+    //combinedTexture = new ofTexture();
+    //combinedTexture->allocate(320*cameras.size(), 240, GL_RGB);
     
     syphonServer.setName("Cameras");
 	
 	if(cameras.size() > 0){
-		ofSetWindowShape(320 * cameras.size(), 240 * 2);
+		ofSetWindowShape(320 * cameras.size(), 240);
 	}
 }
 
@@ -72,20 +74,19 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
-    ofTexture* combinedTexture = new ofTexture();
-    combinedTexture->allocate(320*cameras.size(), 240, GL_RGB);
     
 	for (int i = 0; i < cameras.size(); i++) {
-		cameras[i]->draw(i * cameras[i]->getWidth(),0);
-		ofDrawBitmapString(ofToString(cameras[i]->getRealFrameRate()), i * cameras[i]->getWidth() + 20, 20);
+		//cameras[i]->draw(i * cameras[i]->getWidth(),0);
+		//ofDrawBitmapString(ofToString(cameras[i]->getRealFrameRate()), i * cameras[i]->getWidth() + 20, 20);
         
-        bwTextures[i]->draw(i * bwTextures[i]->getWidth(), 240);
+        bwTextures[i]->draw(i * bwTextures[i]->getWidth(), 0);
         
         //syphonServers[i]->publishTexture(bwTextures[i]);
 	}
-    combinedTexture->loadScreenData(0, 240, 320 * cameras.size(), 240);
-    syphonServer.publishTexture(combinedTexture);
-	
+    //combinedTexture->loadScreenData(0, 240, 320 * cameras.size(), 240);
+    //syphonServer.publishTexture(combinedTexture);
+	syphonServer.publishScreen();
+    
 	if(cameras.size() == 0){
 		ofDrawBitmapString("No PS3Eye found. :(", 20, 20);
 	}
