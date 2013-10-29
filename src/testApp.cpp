@@ -83,7 +83,7 @@ void testApp::draw(){
         
         //syphonServers[i]->publishTexture(bwTextures[i]);
 	}
-    combinedTexture->loadScreenData(0, 240, 320 * bwTextures.size(), 240);
+    combinedTexture->loadScreenData(0, 240, 320 * cameras.size(), 240);
     syphonServer.publishTexture(combinedTexture);
 	
 	if(cameras.size() == 0){
